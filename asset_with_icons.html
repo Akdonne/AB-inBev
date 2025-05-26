@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Asset</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="vendorData.js"></script>
+  <style>
+    .asset-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+  </style>
+  <script>
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        brand: params.get('brand'),
+        category: params.get('category')
+      };
+    }
+
+    function loadAssets() {
+      const { brand, category } = getParams();
+      const assetsDiv = document.getElementById('assets');
+
+      if (vendorData[brand] && vendorData[brand][category]) {
+        const assetKeys = Object.keys(vendorData[brand][category]);
+        assetKeys.forEach(asset => {
+          const link = document.createElement('a');
+          link.className = 'button';
+          link.href = `vendor.html?brand=${brand}&category=${category}&asset=${encodeURIComponent(asset)}`;
+          link.innerHTML = `<img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" class="asset-icon">${asset}`;
+          assetsDiv.appendChild(link);
+        });
+      } else {
+        assetsDiv.textContent = 'No assets found for this selection.';
+      }
+    }
+
+    window.onload = loadAssets;
+  </script>
+</head>
+<body>
+  <h1>Select an Asset</h1>
+  <div id="assets" class="buttons"></div>
+</body>
+</html>

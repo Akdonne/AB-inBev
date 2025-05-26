@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Category</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+  </style>
+  <script>
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key);
+    }
+
+    function updateLinks() {
+      const brand = getQueryParam("brand");
+      document.getElementById("col").href = `asset.html?brand=${brand}&category=Collateral`;
+      document.getElementById("tab").href = `asset.html?brand=${brand}&category=Table Connect`;
+      document.getElementById("vis").href = `asset.html?brand=${brand}&category=Visibility`;
+    }
+
+    window.onload = updateLinks;
+  </script>
+</head>
+<body>
+  <h1>Select a Category</h1>
+  <div class="buttons">
+    <a id="col" class="button"><img src="https://cdn-icons-png.flaticon.com/512/3602/3602145.png" class="icon">Collateral</a>
+    <a id="tab" class="button"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828961.png" class="icon">Table Connect</a>
+    <a id="vis" class="button"><img src="https://cdn-icons-png.flaticon.com/512/709/709592.png" class="icon">Visibility</a>
+  </div>
+</body>
+</html>

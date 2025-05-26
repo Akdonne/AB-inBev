@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vendor Details</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="vendorData.js"></script>
+  <style>
+    .vendor-card {
+      border: 1px solid #000;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px auto;
+      width: 300px;
+      background: #f9f9f9;
+    }
+    .vendor-card img {
+      width: 40px;
+      height: 40px;
+      float: right;
+    }
+  </style>
+  <script>
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        brand: params.get('brand'),
+        category: params.get('category'),
+        asset: params.get('asset')
+      };
+    }
+
+    function loadVendors() {
+      const { brand, category, asset } = getParams();
+      const container = document.getElementById('vendors');
+
+      if (vendorData[brand] && vendorData[brand][category] && vendorData[brand][category][asset]) {
+        vendorData[brand][category][asset].forEach(vendor => {
+          const card = document.createElement('div');
+          card.className = 'vendor-card';
+          card.innerHTML = `
+            <img src="https://cdn-icons-png.flaticon.com/512/2936/2936713.png" alt="Vendor Icon">
+            <h3>${vendor['Vendor Name']}</h3>
+            <p><strong>Code:</strong> ${vendor['Vendor Code']}</p>
+            <p><strong>Location:</strong> ${vendor['Geographical Base']}</p>
+            <p><strong>Email:</strong> ${vendor['Vendor Email']}</p>
+            <p><strong>Contact:</strong> ${vendor['Vendor Contact']}</p>
+          `;
+          container.appendChild(card);
+        });
+      } else {
+        container.innerHTML = '<p>No vendor details found for this asset.</p>';
+      }
+    }
+
+    window.onload = loadVendors;
+  </script>
+</head>
+<body>
+  <h1>Vendor Details</h1>
+  <div id="vendors"></div>
+</body>
+</html>
