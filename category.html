@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Category</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key);
+    }
+
+    function updateLinks() {
+      const brand = getQueryParam("brand");
+      document.getElementById("col").href = `asset.html?brand=${brand}&category=Collateral`;
+      document.getElementById("tab").href = `asset.html?brand=${brand}&category=Table Connect`;
+      document.getElementById("vis").href = `asset.html?brand=${brand}&category=Visibility`;
+    }
+
+    window.onload = updateLinks;
+  </script>
+</head>
+<body>
+  <h1>Select a Category</h1>
+  <div class="buttons">
+    <a id="col" class="button">Collateral</a>
+    <a id="tab" class="button">Table Connect</a>
+    <a id="vis" class="button">Visibility</a>
+  </div>
+</body>
+</html>
